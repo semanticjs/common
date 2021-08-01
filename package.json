@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/semanticjs/common/issues"
   },
-  "homepage": "https://github.com/semanticjs/common#readme"
+  "homepage": "https://github.com/semanticjs/common#readme",
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
 }
