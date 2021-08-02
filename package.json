@@ -1,17 +1,24 @@
 {
   "name": "@semanticjs/common",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./packages/cjs/index.js",
+  "module": "./packages/es/index.js",
+  "files": [
+    "packages/"
+  ],
   "scripts": {
     "build": "concurrently \"npm run build:es\" \"npm run build:cjs\"",
     "build:es": "tsc -p tsconfig.es.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
+		"deploy": "npm version patch && npm run deploy:all",
+		"deploy:all": "npm publish ./packages --access public",
+    "prepublishOnly": "npm run build",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "watch": "npm run watch:es",
     "watch:es": "tsc -p tsconfig.es.json -w",
-    "watch:cjs": "tsc -p tsconfig.es.json -w",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "watch:cjs": "tsc -p tsconfig.es.json -w"
   },
   "repository": {
     "type": "git",
