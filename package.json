@@ -10,7 +10,8 @@
     "watch": "npm run watch:es",
     "watch:es": "tsc -p tsconfig.es.json -w",
     "watch:cjs": "tsc -p tsconfig.es.json -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,11 @@
   },
   "homepage": "https://github.com/semanticjs/common#readme",
   "devDependencies": {
+    "@types/jest": "^26.0.24",
     "concurrently": "^6.2.0",
+    "jest": "^27.0.6",
+    "node-fetch": "^2.6.1",
+    "ts-jest": "^27.0.4",
     "typescript": "^4.3.5"
   }
 }

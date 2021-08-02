@@ -77,5 +77,5 @@
   },
   "include": [
     "./src"
-  ]
+, "testing/unit/api/http-client.test.ts"  ]
 }
