@@ -1,9 +1,14 @@
 {
-  "name": "common",
+  "name": "@semanticjs/common",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "concurrently \"npm run build:es\" \"npm run build:cjs\"",
+    "build:es": "tsc -p tsconfig.es.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "watch:es": "watch \"npm run build:es\" ./src",
+    "watch:cjs": "watch \"npm run build:cjs\" ./src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,6 +23,8 @@
   },
   "homepage": "https://github.com/semanticjs/common#readme",
   "devDependencies": {
-    "typescript": "^4.3.5"
+    "concurrently": "^6.2.0",
+    "typescript": "^4.3.5",
+    "watch": "^1.0.2"
   }
 }
