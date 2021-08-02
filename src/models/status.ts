@@ -1,5 +1,5 @@
 export class Status {
-    public Code?: number;
+  public Code?: number;
 
-    public Message?: string;
+  public Message?: string;
 }

@@ -1,5 +1,3 @@
-import { Status } from './models/status.js'
+import { Status } from "./models/status.js";
 
-export {
-    Status
-}
+export { Status };
