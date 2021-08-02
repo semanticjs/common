@@ -7,6 +7,7 @@
     "build": "concurrently \"npm run build:es\" \"npm run build:cjs\"",
     "build:es": "tsc -p tsconfig.es.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
+    "watch": "npm run watch:es",
     "watch:es": "tsc -p tsconfig.es.json -w",
     "watch:cjs": "tsc -p tsconfig.es.json -w",
     "test": "echo \"Error: no test specified\" && exit 1"
