@@ -12,7 +12,7 @@
     "build:es": "tsc -p tsconfig.es.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "deploy": "npm version patch && npm run deploy:all",
-    "deploy:all": "npm publish ./packages --access public",
+    "deploy:all": "npm publish --access public",
     "prepublishOnly": "npm run build",
     "test": "jest",
     "test:coverage": "jest --coverage",
