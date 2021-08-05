@@ -1,4 +1,4 @@
-import { HTTPClient } from "../../../src/api/http-client";
+import HTTPClient from "../../../src/api/HTTPClient";
 
 global.fetch = require("node-fetch");
 

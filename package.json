@@ -2,8 +2,8 @@
   "name": "@semanticjs/common",
   "version": "0.0.0",
   "description": "",
-  "main": "./packages/cjs/index.js",
-  "module": "./packages/es/index.js",
+  "main": "./packages/cjs/common.js",
+  "module": "./packages/es/common.js",
   "files": [
     "packages/"
   ],
@@ -18,7 +18,7 @@
     "test:coverage": "jest --coverage",
     "watch": "npm run watch:es",
     "watch:es": "tsc -p tsconfig.es.json -w",
-    "watch:cjs": "tsc -p tsconfig.es.json -w"
+    "watch:cjs": "tsc -p tsconfig.cjs.json -w"
   },
   "repository": {
     "type": "git",
