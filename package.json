@@ -1,6 +1,6 @@
 {
   "name": "@semanticjs/common",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "./packages/cjs/common.js",
   "module": "./packages/es/common.js",
@@ -11,8 +11,8 @@
     "build": "concurrently \"npm run build:es\" \"npm run build:cjs\"",
     "build:es": "tsc -p tsconfig.es.json",
     "build:cjs": "tsc -p tsconfig.cjs.json",
-		"deploy": "npm version patch && npm run deploy:all",
-		"deploy:all": "npm publish ./packages --access public",
+    "deploy": "npm version patch && npm run deploy:all",
+    "deploy:all": "npm publish ./packages --access public",
     "prepublishOnly": "npm run build",
     "test": "jest",
     "test:coverage": "jest --coverage",
