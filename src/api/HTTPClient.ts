@@ -1,4 +1,4 @@
-export default class HTTPClient {
+export class HTTPClient {
   public Delete(url: string, headers: {} = {}): Promise<Response> {
     return fetch(url, {
       method: "DELETE",
