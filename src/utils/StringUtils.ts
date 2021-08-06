@@ -1,4 +1,4 @@
-export class StringUtils {
+export default class StringUtils {
     /*
      * Used to capitalize the first letter in a string.
      */
