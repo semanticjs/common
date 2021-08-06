@@ -2,8 +2,8 @@
   "name": "@semanticjs/common",
   "version": "0.0.3",
   "description": "",
-  "main": "./packages/cjs/common.js",
-  "module": "./packages/es/common.js",
+  "main": "./packages/cjs/index.js",
+  "module": "./packages/es/index.js",
   "files": [
     "packages/"
   ],
