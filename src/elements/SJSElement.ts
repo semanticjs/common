@@ -1,4 +1,4 @@
-export class SJSElement {
+export default class SJSElement {
     //  Fields
     protected mountedEl?: HTMLElement;
 
