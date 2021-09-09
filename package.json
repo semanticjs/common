@@ -8,14 +8,17 @@
     "packages/"
   ],
   "scripts": {
-    "build": "rimraf packages && npm run rollup",
+    "build": "rimraf packages && npm run build:tsc && npm run rollup",
+    "build:tsc": "concurrently \"npm run build:esm\" \"npm run build:cjs\"",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
     "deploy": "npm version patch && npm run deploy:all",
     "deploy:all": "npm run build && npm publish --access public",
     "rollup": "rollup --config",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "watch": "npm run watch:es",
-    "watch:es": "tsc -p tsconfig.es.json -w",
+    "watch": "npm run watch:esm",
+    "watch:esm": "tsc -p tsconfig.esm.json -w",
     "watch:cjs": "tsc -p tsconfig.cjs.json -w"
   },
   "repository": {
