@@ -1,30 +1,44 @@
-import merge from 'deepmerge';
-import { createBasicConfig } from '@open-wc/building-rollup';
-// import typescript from '@rollup/plugin-typescript';
+import typescript from 'rollup-plugin-typescript2';
+import pkg from './package.json';
 
-const baseConfig = createBasicConfig();
+const extensions = ['.js', '.jsx', '.ts', '.tsx'];
+const input = 'src/index.ts';
+
+const typescriptPluginArgs = {
+  typescript: require('typescript'),
+};
 
 export default [
   {
-    input: './packages/esm/index.js',
+    input,
     output: [
       {
-        dir: 'dist/esm',
+        file: pkg.module,
         format: 'esm',
         sourcemap: true,
       },
     ],
-    // plugins: [typescript({ tsconfig: './tsconfig.esm.json' })],
+    plugins: [
+      typescript({
+        ...typescriptPluginArgs,
+        tsconfig: './tsconfig.esm.json',
+      }),
+    ],
   },
-  // merge(baseConfig, {
-  //   input: './packages/cjs/index.js',
-  //   output: [
-  //     {
-  //       dir: 'dist/cjs',
-  //       format: 'cjs',
-  //       sourcemap: true,
-  //     },
-  //   ],
-  //   // plugins: [typescript({ tsconfig: './tsconfig.cjs.json' })],
-  // }),
+  {
+    input,
+    output: [
+      {
+        file: pkg.main,
+        format: 'cjs',
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      typescript({
+        ...typescriptPluginArgs,
+        tsconfig: './tsconfig.cjs.json',
+      }),
+    ],
+  },
 ];
