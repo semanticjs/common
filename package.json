@@ -10,18 +10,13 @@
   ],
   "scripts": {
     "build": "npm run clean && npm run rollup",
-    "build:tsc": "concurrently \"npm run build:esm\" \"npm run build:cjs\"",
-    "build:esm": "tsc -p tsconfig.esm.json",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
     "clean": "rimraf dist",
     "deploy": "npm version patch && npm run deploy:all",
     "deploy:all": "npm run build && npm publish --access public",
     "rollup": "rollup -c",
     "test": "jest",
-    "test:coverage": "jest --coverage",
-    "watch": "npm run watch:esm",
-    "watch:esm": "tsc -p tsconfig.esm.json -w",
-    "watch:cjs": "tsc -p tsconfig.cjs.json -w"
+    "test:coverage": "npm run test -- --coverage",
+    "watch": "npm run rollup -- -w"
   },
   "repository": {
     "type": "git",
