@@ -3,3 +3,6 @@
 
 # Build Packages
 /dist
+
+# Testing
+/coverage
