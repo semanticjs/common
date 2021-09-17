@@ -1,11 +1,9 @@
-import HTTPClient from "../../../src/api/HTTPClient";
+import { Get } from "../../../src/api/HTTPClient";
 
 global.fetch = require("node-fetch");
 
 test("basic", async () => {
-  const client = new HTTPClient();
-
-  const resp = await client.Get("https://www.google.com");
+  const resp = await Get("https://www.google.com");
 
   expect(resp.status).toBe(200);
 
