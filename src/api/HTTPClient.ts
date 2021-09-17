@@ -1,5 +1,5 @@
 export default class HTTPClient {
-  public Delete(url: string, headers: {} = {}): Promise<Response> {
+  public static Delete(url: string, headers: {} = {}): Promise<Response> {
     return fetch(url, {
       method: "DELETE",
       headers: {
