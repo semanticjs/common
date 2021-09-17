@@ -1,7 +1,6 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    /* Basic Options */
-    "outDir": "./dist/esm",                      /* Redirect output structure to the directory. */
+    "outDir": "./dist/esm",
   }
 }
