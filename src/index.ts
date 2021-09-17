@@ -5,4 +5,4 @@ import Status from './models/Status';
 import StringUtils from './utils/StringUtils';
 import SJSElement from './elements/SJSElement';
 
-export { HTTPClient,  StringUtils, SJSElement, DOMQuery, SJSDoc };
+export { HTTPClient, Status, StringUtils, SJSElement, DOMQuery, SJSDoc };
