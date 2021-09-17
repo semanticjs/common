@@ -54,6 +54,10 @@ jobs:
     - name: npm install
       run: npm ci
 
+    # run test
+    - name: run tests
+      run: npm run test
+
     # build & publish npm packages to npmjs.org
     - name: npm build & publish
       if: ${{ steps.versionBump.outputs.new_tag != '' }}
