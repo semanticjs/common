@@ -1,8 +1,7 @@
-import { DOMQuery } from './dom/DOMUtils';
-import { SJSDoc } from './dom/SJSDocument';
-import Status from './models/Status';
-import SJSElement from './elements/SJSElement';
-
-export { Status, SJSElement, DOMQuery, SJSDoc };
 export * from './api/HTTPClient';
+export * from './dom/DOMUtils';
+export * from './dom/SJSDocument';
+export * from './elements/SJSElement';
+export * from './models/eac.models';
+export * from './models/Status';
 export * from './utils/StringUtils';
