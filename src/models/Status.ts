@@ -1,4 +1,4 @@
-export default class Status {
+export class Status {
     public Code?: number;
     
     public Message?: string;

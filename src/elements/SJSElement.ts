@@ -1,4 +1,4 @@
-export default abstract class SJSElement {
+export abstract class SJSElement {
   //  Fields
   protected mountedEls: Array<HTMLElement>;
 
