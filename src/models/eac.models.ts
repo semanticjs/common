@@ -243,9 +243,13 @@ export class EaCApplicationAsCode {
 
   public LookupConfig?: EaCApplicationLookupConfiguration;
 
+  public LowCodeUnit?: EaCLowCodeUnit;
+
   public ModifierLookups?: Array<string>;
 
   public Processor?: EaCProcessor;
+
+  public SourceControlLookup?: string;
 }
 
 export class EaCApplicationLookupConfiguration {
@@ -292,8 +296,6 @@ export class EaCProcessor {
 
   public CacheControl?: string;
 
-  public LowCodeUnit?: EaCLowCodeUnit;
-
   public ModifierLookups?: Array<string>;
 
   public Priority?: number;
@@ -303,8 +305,6 @@ export class EaCProcessor {
 
 export class EaCLowCodeUnit {
   [key: string]: any;
-
-  public SourceControlLookup?: string;
 
   public Type?: string;
 }
