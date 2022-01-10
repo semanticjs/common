@@ -289,6 +289,8 @@ export class EaCApplicationDetails {
   public Name?: string;
 
   public Priority?: number;
+
+  public PriorityShift?: number;
 }
 
 export class EaCProcessor {
