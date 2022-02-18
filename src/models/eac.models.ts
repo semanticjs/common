@@ -172,27 +172,9 @@ export class EaCSourceControl {
 
   [key: string]: any;
 
-  public Branches?: Array<string>;
-
   public DevOpsActionTriggerLookups?: Array<string>;
 
-  public ID?: string;
-
-  public Label?: string;
-
-  public Lookup?: string;
-
-  public MainBranch?: string;
-
   public Name?: string;
-
-  public Organization?: string;
-
-  public Registry?: string;
-
-  public Repository?: string;
-
-  public TenantLookup?: string;
 
   public Type?: string;
   
@@ -331,27 +313,8 @@ export class EaCLowCodeUnit {
 
   [key: string]: any;
 
-  public Branch?: string;
+public SourceControlLookup?: string;
 
-  public Build?: string;
+public Type?: string;
 
-  public CurrentBuild?: string;
-
-  public ID?: string;
-
-  public Label?: string;
-
-  public Organization?: string;
-
-  public Path?: string;
-
-  public Registry?: string;
-
-  public Repository?: string;
-
-  public SourceControlLookup?: string;
-
-  public TenantLookup?: string;
-
-  public Type?: string;
 }
