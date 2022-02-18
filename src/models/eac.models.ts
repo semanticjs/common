@@ -172,27 +172,9 @@ export class EaCSourceControl {
 
   [key: string]: any;
 
-  public Branches?: Array<string>;
-
   public DevOpsActionTriggerLookups?: Array<string>;
 
-  public ID?: string;
-
-  public Label?: string;
-
-  public Lookup?: string;
-
-  public MainBranch?: string;
-
   public Name?: string;
-
-  public Organization?: string;
-
-  public Registry?: string;
-
-  public Repository?: string;
-
-  public TenantLookup?: string;
 
   public Type?: string;
   
