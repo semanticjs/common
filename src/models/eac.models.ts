@@ -189,6 +189,8 @@ export class EaCProjectAsCode {
 
   public ModifierLookups?: Array<string>;
 
+  public PrimaryHost?: string;
+
   public Project?: EaCProjectDetails;
 
   public RelyingParty?: EaCRelyingParty;
