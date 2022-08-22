@@ -1,6 +1,6 @@
 {
   "name": "@semanticjs/common",
-  "version": "0.0.18",
+  "version": "1.0.00",
   "description": "",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.js",
