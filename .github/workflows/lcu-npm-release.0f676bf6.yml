@@ -48,8 +48,8 @@ jobs:
           echo "Current branch is ${{ steps.vars.outputs.branchName }}"
           echo "Version bump type is ${{ steps.vars.outputs.versionBump }}"
 
-      # bump version and push tag
-      - name: Bump version and push tag
+      # bump version 
+      - name: Bump version
         uses: fathym/github-tag-action@master
         id: versionBump
         env:
@@ -97,7 +97,7 @@ jobs:
       # bump version and push tag
       - name: Bump version and push tag
         uses: fathym/github-tag-action@master
-        id: versionBump
+        id: versionBumpTag
         env:
           DEFAULT_BUMP: ${{ steps.vars.outputs.versionBump }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
