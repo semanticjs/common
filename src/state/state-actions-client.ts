@@ -62,7 +62,7 @@ export abstract class StateClientActions {
   }
 
   //  API Methods
-  public async Start() {
+  public async Start(): Promise<void> {
     try {
       //  TODO:  Retry logic here
 
@@ -76,7 +76,7 @@ export abstract class StateClientActions {
         this.registerStateHandlers();
       }
 
-      this.Hub?.start();
+      await this.Hub?.start();
 
       this.started.next(true);
     } catch (ex: any) {
@@ -84,6 +84,22 @@ export abstract class StateClientActions {
 
       this.handleStartError(ex);
     }
+  }
+
+  public async Stop(): Promise<void> {
+    await this.Hub!.stop();
+  }
+
+  public async AttachState(stateType: string, stateKey: string): Promise<void> {
+    this.registerStateHandler(stateType, stateKey);
+
+    await this.Hub!.invoke('AttachState', stateType, stateKey);
+  }
+
+  public UnattachState(stateType: string, stateKey: string): Promise<void> {
+    this.unregisterStateHandler(stateType, stateKey);
+
+    return this.Hub!.invoke('UnattachState', stateType, stateKey);
   }
 
   //  Helpers
