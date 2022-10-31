@@ -43,5 +43,8 @@
     "rollup-plugin-typescript2": "^0.30.0",
     "ts-jest": "^28.0.8",
     "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@aspnet/signalr": "^1.0.27"
   }
 }
