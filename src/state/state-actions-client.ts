@@ -21,7 +21,7 @@ export class StateUpdateRequest<TState> extends StateRequest {
   public State!: TState;
 }
 
-export abstract class StateClientActions {
+export abstract class StateActionsClient {
   //  Fields
   protected attachedStates!: { [stateLookup: string]: Set<string> };
 
