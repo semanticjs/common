@@ -48,7 +48,7 @@ export abstract class StateActionsClient {
 
     this.retryCount = 0;
 
-    this.started = new BehaviorSubject(false);
+    this.started = new BehaviorSubject<boolean>(false);
 
     this.state = new BehaviorSubject<StateEventArgs | null>(null);
 
