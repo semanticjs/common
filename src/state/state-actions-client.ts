@@ -87,19 +87,22 @@ export abstract class StateActionsClient {
   }
 
   public async Stop(): Promise<void> {
-    await this.Hub!.stop();
+    await this.Hub?.stop();
   }
 
   public async AttachState(stateType: string, stateKey: string): Promise<void> {
     this.registerStateHandler(stateType, stateKey);
 
-    await this.Hub!.invoke('AttachState', stateType, stateKey);
+    await this.Hub?.invoke('AttachState', stateType, stateKey);
   }
 
-  public UnattachState(stateType: string, stateKey: string): Promise<void> {
+  public async UnattachState(
+    stateType: string,
+    stateKey: string
+  ): Promise<void> {
     this.unregisterStateHandler(stateType, stateKey);
 
-    return this.Hub!.invoke('UnattachState', stateType, stateKey);
+    await this.Hub?.invoke('UnattachState', stateType, stateKey);
   }
 
   //  Helpers
@@ -148,7 +151,7 @@ export abstract class StateActionsClient {
   protected unregisterStateHandler(stateType: string, stateKey: string): void {
     var stateLookup = `${stateType}|${stateKey}`;
 
-    this.Hub!.off(stateLookup);
+    this.Hub?.off(stateLookup);
 
     if (this.attachedStates[stateType])
       this.attachedStates[stateType].delete(stateKey);
