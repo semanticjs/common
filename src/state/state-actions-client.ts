@@ -32,7 +32,7 @@ export abstract class StateActionsClient {
   protected state: BehaviorSubject<StateEventArgs | undefined>;
 
   //  Properties
-  public Hub!: signalR.HubConnection;
+  public Hub?: signalR.HubConnection;
 
   public Started!: Observable<boolean>;
 
