@@ -4,164 +4,170 @@ import { BehaviorSubject, Observable } from 'rxjs';
 //  TODO:  Need to manage reconnection to hub scenarios here
 
 export class StateEventArgs {
-  public State: any;
+    public State: any;
 
-  public StateKey!: string;
+    public StateKey!: string;
 
-  public StateType!: string;
+    public StateType!: string;
 }
 
 export class StateRequest {
-  public StateKey!: string;
+    public StateKey!: string;
 
-  public StateType!: string;
+    public StateType!: string;
 }
 
 export class StateUpdateRequest<TState> extends StateRequest {
-  public State!: TState;
+    public State!: TState;
 }
 
 export abstract class StateActionsClient {
-  //  Fields
-  protected attachedStates!: { [stateLookup: string]: Set<string> };
+    //  Fields
+    protected attachedStates!: { [stateLookup: string]: Set<string> };
 
-  protected retryCount: number;
+    protected retryCount: number;
 
-  protected started: BehaviorSubject<boolean>;
+    protected started: BehaviorSubject<boolean>;
 
-  protected state: BehaviorSubject<StateEventArgs | null>;
+    protected state: BehaviorSubject<StateEventArgs | null>;
 
-  //  Properties
-  public Hub?: signalR.HubConnection;
+    //  Properties
+    public Hub?: signalR.HubConnection;
 
-  public Started!: Observable<boolean>;
+    public Started!: Observable<boolean>;
 
-  public State!: Observable<StateEventArgs | null>;
+    public State!: Observable<StateEventArgs | null>;
 
-  public Transport: signalR.HttpTransportType;
+    public Transport: signalR.HttpTransportType;
 
-  public URL: string;
+    public URL: string;
 
-  //  Constructors
-  constructor(url: string, transport: signalR.HttpTransportType) {
-    this.attachedStates = {};
+    //  Constructors
+    constructor(url: string, transport: signalR.HttpTransportType) {
+        this.attachedStates = {};
 
-    this.retryCount = 0;
+        this.retryCount = 0;
 
-    this.started = new BehaviorSubject<boolean>(false);
+        this.started = new BehaviorSubject<boolean>(false);
 
-    this.state = new BehaviorSubject<StateEventArgs | null>(null);
+        this.state = new BehaviorSubject<StateEventArgs | null>(null);
 
-    this.Started = this.started.asObservable();
+        this.Started = this.started.asObservable();
 
-    this.State = this.state.asObservable();
+        this.State = this.state.asObservable();
 
-    this.Transport = transport;
+        this.Transport = transport;
 
-    this.URL = url;
-  }
-
-  //  API Methods
-  public async Start(): Promise<void> {
-    try {
-      //  TODO:  Retry logic here
-
-      if (this.Hub === undefined) {
-        this.Hub = this.connect();
-
-        this.Hub.serverTimeoutInMilliseconds = 600000;
-
-        this.Hub.onclose(this.onClosed);
-
-        this.registerStateHandlers();
-      }
-
-      await this.Hub?.start();
-
-      this.started.next(true);
-    } catch (ex: any) {
-      this.Hub = undefined;
-
-      this.handleStartError(ex);
+        this.URL = url;
     }
-  }
 
-  public async Stop(): Promise<void> {
-    await this.Hub?.stop();
-  }
+    //  API Methods
+    public async Start(): Promise<void> {
+        try {
+            //  TODO:  Retry logic here
 
-  public async AttachState(stateType: string, stateKey: string): Promise<void> {
-    this.registerStateHandler(stateType, stateKey);
+            if (this.Hub === undefined) {
+                this.Hub = this.connect();
 
-    await this.Hub?.invoke('AttachState', stateType, stateKey);
-  }
+                this.Hub.serverTimeoutInMilliseconds = 600000;
 
-  public async UnattachState(
-    stateType: string,
-    stateKey: string
-  ): Promise<void> {
-    this.unregisterStateHandler(stateType, stateKey);
+                this.Hub.onclose(this.onClosed);
 
-    await this.Hub?.invoke('UnattachState', stateType, stateKey);
-  }
+                this.registerStateHandlers();
+            }
 
-  //  Helpers
-  protected connect(): signalR.HubConnection {
-    var bldr = this.createHubBuilder();
+            await this.Hub!.start();
 
-    return bldr.build();
-  }
+            this.started.next(true);
+        } catch (ex: any) {
+            this.Hub = undefined;
 
-  protected createHubBuilder() {
-    return new signalR.HubConnectionBuilder().withUrl(this.URL, {
-      transport: this.Transport,
-    });
-    // .WithAutomaticReconnect();  // TODO:  Reconnect logic will have to be manually implemented
-  }
+            this.handleStartError(ex);
+        }
+    }
 
-  protected handleStartError(ex: any): void {}
+    public async Stop(): Promise<void> {
+        await this.Hub?.stop();
+    }
 
-  protected onClosed(err: Error | undefined) {}
-
-  protected registerStateHandler(stateType: string, stateKey: string): void {
-    var stateLookup = `${stateType}|${stateKey}`;
-
-    this.unregisterStateHandler(stateType, stateKey);
-
-    this.Hub!.on(stateLookup, this.updateState);
-
-    if (!this.attachedStates[stateType])
-      this.attachedStates[stateType] = new Set<string>();
-
-    this.attachedStates[stateType].add(stateKey);
-  }
-
-  protected registerStateHandlers(): void {
-    const stateTypes = Object.keys(this.attachedStates);
-
-    stateTypes.forEach((stateType) => {
-      const stateKeys = this.attachedStates[stateType];
-
-      stateKeys.forEach((stateKey) => {
+    public async AttachState(
+        stateType: string,
+        stateKey: string
+    ): Promise<void> {
         this.registerStateHandler(stateType, stateKey);
-      });
-    });
-  }
 
-  protected unregisterStateHandler(stateType: string, stateKey: string): void {
-    var stateLookup = `${stateType}|${stateKey}`;
+        await this.Hub?.invoke('AttachState', stateType, stateKey);
+    }
 
-    this.Hub?.off(stateLookup);
+    public async UnattachState(
+        stateType: string,
+        stateKey: string
+    ): Promise<void> {
+        this.unregisterStateHandler(stateType, stateKey);
 
-    if (this.attachedStates[stateType])
-      this.attachedStates[stateType].delete(stateKey);
-  }
+        await this.Hub?.invoke('UnattachState', stateType, stateKey);
+    }
 
-  protected updateState(request: StateUpdateRequest<any>): void {
-    this.state.next({
-      State: request.State,
-      StateType: request.StateType,
-      StateKey: request.StateKey,
-    });
-  }
+    //  Helpers
+    protected connect(): signalR.HubConnection {
+        var bldr = this.createHubBuilder();
+
+        return bldr.build();
+    }
+
+    protected createHubBuilder() {
+        return new signalR.HubConnectionBuilder().withUrl(this.URL, {
+            transport: this.Transport,
+        });
+        // .WithAutomaticReconnect();  // TODO:  Reconnect logic will have to be manually implemented
+    }
+
+    protected handleStartError(ex: any): void {}
+
+    protected onClosed(err: Error | undefined) {}
+
+    protected registerStateHandler(stateType: string, stateKey: string): void {
+        var stateLookup = `${stateType}|${stateKey}`;
+
+        this.unregisterStateHandler(stateType, stateKey);
+
+        this.Hub!.on(stateLookup, this.updateState);
+
+        if (!this.attachedStates[stateType])
+            this.attachedStates[stateType] = new Set<string>();
+
+        this.attachedStates[stateType].add(stateKey);
+    }
+
+    protected registerStateHandlers(): void {
+        const stateTypes = Object.keys(this.attachedStates);
+
+        stateTypes.forEach((stateType) => {
+            const stateKeys = this.attachedStates[stateType];
+
+            stateKeys.forEach((stateKey) => {
+                this.registerStateHandler(stateType, stateKey);
+            });
+        });
+    }
+
+    protected unregisterStateHandler(
+        stateType: string,
+        stateKey: string
+    ): void {
+        var stateLookup = `${stateType}|${stateKey}`;
+
+        this.Hub!.off(stateLookup);
+
+        if (this.attachedStates[stateType])
+            this.attachedStates[stateType].delete(stateKey);
+    }
+
+    protected updateState(request: StateUpdateRequest<any>): void {
+        this.state.next({
+            State: request.State,
+            StateType: request.StateType,
+            StateKey: request.StateKey,
+        });
+    }
 }
