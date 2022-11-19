@@ -128,7 +128,7 @@ export abstract class StateActionsClient {
 
     this.unregisterStateHandler(stateType, stateKey);
 
-    this.Hub!.on(stateLookup, this.updateState);
+    this.Hub?.on(stateLookup, this.updateState);
 
     if (!this.attachedStates[stateType])
       this.attachedStates[stateType] = new Set<string>();
