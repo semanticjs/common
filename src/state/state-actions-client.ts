@@ -151,7 +151,7 @@ export abstract class StateActionsClient {
   protected unregisterStateHandler(stateType: string, stateKey: string): void {
     var stateLookup = `${stateType}|${stateKey}`;
 
-    this.Hub!.off(stateLookup);
+    this.Hub?.off(stateLookup);
 
     if (this.attachedStates[stateType])
       this.attachedStates[stateType].delete(stateKey);
