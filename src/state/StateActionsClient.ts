@@ -1,42 +1,22 @@
 import * as signalR from '@aspnet/signalr';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { TypedEventEmitter } from '../api/TypedEventEmitter';
+import { StateEventArgs } from './StateEventArgs';
+import { StateUpdateRequest } from './StateUpdateRequest';
 
-//  TODO:  Need to manage reconnection to hub scenarios here
+type StateActionsClientEvents = {
+  started: (started: boolean) => void;
+  state: (state: StateEventArgs) => void;
+};
 
-export class StateEventArgs {
-  public State: any;
-
-  public StateKey!: string;
-
-  public StateType!: string;
-}
-
-export class StateRequest {
-  public StateKey!: string;
-
-  public StateType!: string;
-}
-
-export class StateUpdateRequest<TState> extends StateRequest {
-  public State!: TState;
-}
-
-export abstract class StateActionsClient {
+export abstract class StateActionsClient extends TypedEventEmitter<StateActionsClientEvents> {
   //  Fields
   protected attachedStates!: { [stateLookup: string]: Set<string> };
 
   protected retryCount: number;
 
-  protected started: BehaviorSubject<boolean>;
-
-  protected state: BehaviorSubject<StateEventArgs | undefined>;
-
   //  Properties
   public Hub?: signalR.HubConnection;
-
-  public Started!: Observable<boolean>;
-
-  public State!: Observable<StateEventArgs | undefined>;
 
   public Transport: signalR.HttpTransportType;
 
@@ -44,17 +24,11 @@ export abstract class StateActionsClient {
 
   //  Constructors
   constructor(url: string, transport: signalR.HttpTransportType) {
+    super();
+
     this.attachedStates = {};
 
     this.retryCount = 0;
-
-    this.started = new BehaviorSubject<boolean>(false);
-
-    this.state = new BehaviorSubject<StateEventArgs | undefined>(undefined);
-
-    this.Started = this.started.asObservable();
-
-    this.State = this.state.asObservable();
 
     this.Transport = transport;
 
@@ -71,14 +45,16 @@ export abstract class StateActionsClient {
 
         this.Hub.serverTimeoutInMilliseconds = 600000;
 
-        this.Hub.onclose(this.onClosed);
+        this.Hub.onclose((err) => this.onClosed(err));
 
         this.registerStateHandlers();
       }
 
       await this.Hub!.start();
 
-      this.started.next(true);
+      if (this.Hub) {
+        this.emit('started', true);
+      }
     } catch (ex: any) {
       this.Hub = undefined;
 
@@ -128,7 +104,7 @@ export abstract class StateActionsClient {
 
     this.unregisterStateHandler(stateType, stateKey);
 
-    this.Hub?.on(stateLookup, this.updateState);
+    this.Hub?.on(stateLookup, (state) => this.updateState(state));
 
     if (!this.attachedStates[stateType])
       this.attachedStates[stateType] = new Set<string>();
@@ -158,7 +134,7 @@ export abstract class StateActionsClient {
   }
 
   protected updateState(request: StateUpdateRequest<any>): void {
-    this.state.next({
+    this.emit('state', {
       State: request.State,
       StateType: request.StateType,
       StateKey: request.StateKey,
