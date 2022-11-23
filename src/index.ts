@@ -1,6 +1,6 @@
 export * from './api/HTTPClient';
 export * from './api/LCUServiceSettings';
-export * from './api/TypedEventEmitter';
+export * from './api/TypedEventEmitter ';
 export * from './dom/DOMUtils';
 export * from './dom/SJSDocument';
 export * from './elements/SJSElement';

@@ -1,11 +1,12 @@
 import * as signalR from '@aspnet/signalr';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { TypedEventEmitter } from '../api/TypedEventEmitter';
 import { StateEventArgs } from './StateEventArgs';
 import { StateUpdateRequest } from './StateUpdateRequest';
 
 type StateActionsClientEvents = {
+  closed: (err: any) => void;
   started: (started: boolean) => void;
+  startError: (err: any) => void;
   state: (state: StateEventArgs) => void;
 };
 
@@ -95,16 +96,26 @@ export abstract class StateActionsClient extends TypedEventEmitter<StateActionsC
     // .WithAutomaticReconnect();  // TODO:  Reconnect logic will have to be manually implemented
   }
 
-  protected handleStartError(ex: any): void {}
+  protected handleStartError(ex: any): void {
+    this.emit('startError', ex);
+  }
 
-  protected onClosed(err: Error | undefined) {}
+  protected onClosed(err: Error | undefined) {
+    this.emit('closed', err);
+  }
 
   protected registerStateHandler(stateType: string, stateKey: string): void {
     var stateLookup = `${stateType}|${stateKey}`;
 
     this.unregisterStateHandler(stateType, stateKey);
 
-    this.Hub?.on(stateLookup, (state) => this.updateState(state));
+    console.log(`Registering state handler for ${stateLookup}.`);
+
+    this.Hub?.on(stateLookup, (state) => {
+      console.log(`Processing  state for handler ${stateLookup}.`);
+
+      this.updateState(state);
+    });
 
     if (!this.attachedStates[stateType])
       this.attachedStates[stateType] = new Set<string>();
