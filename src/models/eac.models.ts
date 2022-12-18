@@ -169,7 +169,6 @@ export class EaCSecret {
 }
 
 export class EaCSourceControl {
-
   [key: string]: any;
 
   public DevOpsActionTriggerLookups?: Array<string>;
@@ -177,13 +176,12 @@ export class EaCSourceControl {
   public Name?: string;
 
   public Type?: string;
-  
 }
 
 export class EaCProjectAsCode {
   public ApplicationLookups?: Array<string>;
 
-  public DataTokens?: { [lookup: string]: EaCDataToken};
+  public DataTokens?: { [lookup: string]: EaCDataToken };
 
   public Hosts?: Array<string>;
 
@@ -209,7 +207,7 @@ export class EaCProjectDetails {
 export class EaCRelyingParty {
   public AccessRightLookups?: Array<string>;
 
-  public AccessConfigurations?: { [lookup: string]: EaCAccessConfiguration};
+  public AccessConfigurations?: { [lookup: string]: EaCAccessConfiguration };
 
   public DefaultAccessConfigurationLookup?: string;
 
@@ -239,7 +237,7 @@ export class EaCApplicationAsCode {
 
   public Application?: EaCApplicationDetails;
 
-  public DataTokens?: { [lookup: string]: EaCDataToken};
+  public DataTokens?: { [lookup: string]: EaCDataToken };
 
   public LicenseConfigurationLookups?: Array<string>;
 
@@ -250,7 +248,6 @@ export class EaCApplicationAsCode {
   public ModifierLookups?: Array<string>;
 
   public Processor?: EaCProcessor;
-
 }
 
 export class EaCApplicationLookupConfiguration {
@@ -310,11 +307,9 @@ export class EaCProcessor {
 }
 
 export class EaCLowCodeUnit {
-
   [key: string]: any;
 
-public SourceControlLookup?: string;
+  public SourceControlLookup?: string;
 
-public Type?: string;
-
+  public Type?: string;
 }
