@@ -5,8 +5,26 @@ export function Capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
+/**
+ * Used to a string of spaces based on the number requested.
+ */
 export function CreateSpaces(spaces: number) {
   return Array(spaces + 1).reduce((acc) => acc + ' ', '');
+}
+
+/**
+ * Used to indent a string the given number of spaces.
+ */
+export function Indent(value: string, spaces = 2): string {
+  const lines = value.split('\n');
+
+  const spacing = CreateSpaces(spaces);
+
+  const indentedLines = lines.map((line) => spacing + line);
+
+  const indentedStr = indentedLines.join('\n');
+
+  return indentedStr;
 }
 
 /*
