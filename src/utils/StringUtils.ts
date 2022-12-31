@@ -5,6 +5,10 @@ export function Capitalize(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
+export function CreateSpaces(spaces: number) {
+  return Array(spaces + 1).reduce((acc) => acc + ' ', '');
+}
+
 /*
  * Used to capitalize the first letter in a string.
  */
