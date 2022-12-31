@@ -1,3 +1,4 @@
+export * from './utils/AsyncUtils';
 export * from './api/HTTPClient';
 export * from './dom/DOMUtils';
 export * from './dom/SJSDocument';
