@@ -1,7 +1,7 @@
 /*
  * Used to delay processing of something.
  */
-export function Delay<TArgs extends any[]>(
+export function delay<TArgs extends any[]>(
   ms: number,
   ...args: TArgs
 ): Promise<unknown> {
@@ -16,7 +16,7 @@ declare global {
 
 Promise.prototype.delay = function (ms: number): Promise<any> {
   return this.then((args) => {
-    return Delay(ms, args);
+    return delay(ms, args);
   });
 };
 
@@ -30,5 +30,5 @@ Promise.Delay = function <TArgs extends any[]>(
   ms: number,
   ...args: TArgs
 ): Promise<unknown> {
-  return Delay(ms, args);
+  return delay(ms, args);
 };
