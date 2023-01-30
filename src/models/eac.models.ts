@@ -125,6 +125,12 @@ export class EaCEnvironmentDetails {
 }
 
 export class EaCCloud {
+  public Cloud?: EaCCloudDetails;
+
+  public ResourceGroups?: EaCCloudResourceGroup[];
+}
+
+export class EaCCloudDetails {
   [key: string]: any;
 
   public Description?: string;
@@ -132,6 +138,14 @@ export class EaCCloud {
   public Name?: string;
 
   public Type?: string;
+}
+
+export class EaCCloudResourceGroup {
+  public Description?: string;
+
+  public Details?: string;
+
+  public Name?: string;
 }
 
 export class EaCDevOpsAction {
