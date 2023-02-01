@@ -127,7 +127,7 @@ export class EaCEnvironmentDetails {
 export class EaCCloud {
   public Cloud?: EaCCloudDetails;
 
-  public ResourceGroups?: EaCCloudResourceGroup[];
+  public ResourceGroups?: { [lookup: string]: EaCCloudResourceGroup };
 }
 
 export class EaCCloudDetails {
@@ -143,9 +143,21 @@ export class EaCCloudDetails {
 export class EaCCloudResourceGroup {
   public Description?: string;
 
-  public Details?: string;
+  public Details?: any;
 
   public Name?: string;
+
+  public Resources?: { [lookup: string]: EaCCloudResource };
+}
+
+export class EaCCloudResource {
+  public Description?: string;
+
+  public Details?: any;
+
+  public Name?: string;
+
+  public Resources?: { [lookup: string]: EaCCloudResource };
 }
 
 export class EaCDevOpsAction {
