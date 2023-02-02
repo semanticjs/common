@@ -34,8 +34,16 @@ export class EaCEnterpriseDetails {
   public PrimaryHost?: string;
 }
 
+export class EaCLicense {
+  public Group?: string;
+
+  public Type?: string;
+}
+
 export class EaCLicenseConfiguration {
   public Plans?: { [lookup: string]: EaCPlan };
+
+  public HostDNSInstance?: string;
 }
 
 export class EaCHost {
