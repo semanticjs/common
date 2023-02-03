@@ -35,9 +35,11 @@ export class EaCEnterpriseDetails {
 }
 
 export class EaCLicense {
-  public Group?: string;
+  public Details?: string;
 
-  public Type?: string;
+  public ExpirationDate?: Date;
+
+  public IsLocked?: boolean;
 }
 
 export class EaCLicenseConfiguration {
