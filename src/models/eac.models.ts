@@ -34,8 +34,18 @@ export class EaCEnterpriseDetails {
   public PrimaryHost?: string;
 }
 
+export class EaCLicense {
+  public Details?: string;
+
+  public ExpirationDate?: Date;
+
+  public IsLocked?: boolean;
+}
+
 export class EaCLicenseConfiguration {
   public Plans?: { [lookup: string]: EaCPlan };
+
+  public HostDNSInstance?: string;
 }
 
 export class EaCHost {
