@@ -142,11 +142,18 @@ export class EaCCloud {
 
 export class EaCCloudDetails {
   [key: string]: any;
+  public AuthKey?: string;
+
+  public ApplicationID?: string;
 
   public Description?: string;
 
   public Name?: string;
 
+  public SubscrptionID?: string;
+
+  public TenantID?: string;
+  
   public Type?: string;
 }
 
