@@ -226,9 +226,9 @@ export class EaCProjectAsCode {
 
   public DataTokens?: { [lookup: string]: EaCDataToken };
 
-  public Hosts?: Array<string>;
-
   public ModifierLookups?: Array<string>;
+
+  public PrimaryHost?: string;
 
   public Project?: EaCProjectDetails;
 
